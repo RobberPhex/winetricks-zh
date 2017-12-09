@@ -1,17 +1,17 @@
-w_metadata qq apps \
- title="QQ 8.9.4(Chinese chat app)" \
+w_metadata tencent_qq apps \
+ title="QQ 8.9.6(Chinese chat app)" \
  publisher="Tencent" \
  year="2017" \
  media="download" \
- file1="QQ8.9.4.exe" \
+ file1="QQ8.9.6.exe" \
  file2="QQ.tar.gz"\
  installed_exe1="$W_PROGRAMS_X86_WIN/Tencent/QQ/Bin/QQScLauncher.exe" \
  homepage="http://www.qq.com" \
  unattended="no"
 
-load_qq()
+load_tencent_qq()
 {
-    w_download https://dldir1.qq.com/qqfile/qq/QQ8.9.4/21603/QQ8.9.4.exe 10d3d7b584624563fae525b258a3115c8eff08e00758012f47db7c92f8a96e2e
+    w_download https://dldir1.qq.com/qqfile/qq/QQ8.9.6/22427/QQ8.9.6.exe e5eb111b841f78772cb097a31903b0ddbdc9c1faa4719325a2651fe7c43f0531
     w_download http://hillwoodhome.net/wine/QQ.tar.gz eb5cd6371eb75ec9e2fc0271199df05cbb9f38a60c2e81d5d8ac7daeb40aba62
 
     if w_workaround_wine_bug 5162 "Installing native riched20 to work around can't input username."
@@ -28,7 +28,7 @@ load_qq()
     if w_workaround_wine_bug 38171 "Installing desktop file to work around bug"
     then
         w_try_cd "$W_TMP/"
-        tar -zxf "$W_CACHE/qq/QQ.tar.gz"
+        tar -zxf "$W_CACHE/tencent_qq/QQ.tar.gz"
         mkdir -p "$HOME/.local/share/applications/wine/Programs/腾讯软件/QQ"
         mkdir -p "$HOME/.local/share/icons/hicolor/48x48/apps"
         mkdir -p "$HOME/.local/share/icons/hicolor/256x256/apps"
