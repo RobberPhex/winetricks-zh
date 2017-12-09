@@ -1,0 +1,37 @@
+# env LANG=zh_CN.UTF-8 WINEDEBUG=-all wine 'C:\Program Files (x86)\Tencent\RTXC\RTX.exe'
+
+w_metadata rtx apps \
+ title="RTX" \
+ publisher="Tencent" \
+ year="2015" \
+ media="download" \
+ file1="rtxclient2015formal.exe" \
+ installed_exe1="$W_PROGRAMS_X86_WIN/Tencent/RTXC/RTX.exe" \
+ homepage="http://rtx.tencent.com/rtx/index.shtml" \
+ unattended="no"
+
+load_rtx()
+{
+    w_download http://dldir1.qq.com/foxmail/rtx/rtxclient2015formal.exe 93581797f6ebccdf1d15c39918a07a9db3c2e97441d09d40d0ce32e72d745534
+
+#    for dep in msxml3 gdiplus riched30  vcrun6 vcrun2005;
+#        do w_call $dep
+#    done
+
+    if w_workaround_wine_bug 29636 "Installing native riched20 to work around crash bug"
+    then
+        w_call riched20
+    fi
+
+    if w_workaround_wine_bug 34566 "Installing native ctf to work around crash"
+    then
+        w_call msctf
+    fi
+
+    # uses mfc42u.dll
+    w_call mfc42
+
+    cd "$W_CACHE/$W_PACKAGE"
+    w_try "$WINE" "$file1"
+}
+
